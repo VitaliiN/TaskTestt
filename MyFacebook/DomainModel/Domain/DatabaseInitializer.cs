@@ -10,9 +10,10 @@ namespace DomainModel.Domain
     {
         public void InitializeDatabase(DataBaseContext context)
         {
-            if (context.Database.Exists())
-                context.Database.Delete();
-            context.Database.Create();
+            if (context.Database.Exists() == false)
+            {
+                context.Database.Create();
+            }
         }
     }
 }
