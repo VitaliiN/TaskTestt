@@ -34,10 +34,31 @@ namespace WebUI.Controllers
             {
                 RedirectToAction("Index", "Home");
             }
-            
            
              return View();
             
+        }
+
+         public ActionResult CreateUser()
+         {
+             return View(new User {Login = User.Identity.Name});
+         }
+
+
+        [HttpPost]
+        public ActionResult CreateUser(User user)
+       
+        {
+            if (ModelState.IsValid)
+            {
+                userRepository.CreateUser(user);
+                FormsAuthentication.SetAuthCookie(user.Login, false);
+
+                return RedirectToAction("Index", "MainPage", new {id = user.UserId});
+                
+            }
+
+            return View();
         }
 
         //
@@ -58,6 +79,7 @@ namespace WebUI.Controllers
                     }
                     else
                     {
+                        
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -105,7 +127,7 @@ namespace WebUI.Controllers
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("CreateUser");
                 }
                 else
                 {

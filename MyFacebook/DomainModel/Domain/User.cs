@@ -13,6 +13,8 @@ namespace DomainModel.Domain
         [Required(ErrorMessage = "First Name required")]
         public string FirstName { get; set; }
 
+        public string Login { get; set; }
+
          [Required(ErrorMessage = "Last Name required")]
         public string LastName { get; set; }
        
@@ -29,7 +31,7 @@ namespace DomainModel.Domain
 
         public string Gender { get; set; }
 
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         public virtual MaritalStatus MaritalStatus { get; set; }
 
